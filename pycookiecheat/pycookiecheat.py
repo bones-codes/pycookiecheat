@@ -29,7 +29,7 @@ except ImportError:
     from urlparse import urlparse
 
 
-def chrome_cookies(url, cookie_file=None):
+def chrome_cookies(url, cookie_file=None, my_pass=None, opera=False):
 
     salt = b'saltysalt'
     iv = b' ' * 16
@@ -57,12 +57,12 @@ def chrome_cookies(url, cookie_file=None):
 
     # If running Chrome on OSX
     if sys.platform == 'darwin':
-        my_pass = keyring.get_password('Chrome Safe Storage', 'Chrome')
+        browser = 'Opera' if opera else 'Chrome'
+        path = '~/Library/Application Support/com.operasoftware.Opera/Cookies' if opera else '~/Library/Application Support/Google/Chrome/Default/Cookies'
+        my_pass = my_pass or keyring.get_password('{} Safe Storage'.format(browser), '{}'.format(browser))
         my_pass = my_pass.encode('utf8')
         iterations = 1003
-        cookie_file = cookie_file or os.path.expanduser(
-            '~/Library/Application Support/Google/Chrome/Default/Cookies'
-        )
+        cookie_file = cookie_file or os.path.expanduser(path)
 
     # If running Chromium on Linux
     elif sys.platform.startswith('linux'):
