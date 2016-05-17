@@ -34,6 +34,12 @@ r = requests.get(url, cookies=cookies)
 Use the `cookie_file` keyword-argument to specify a different filepath for the
 cookies-file: `chrome_cookies(url, cookie_file='/abspath/to/cookies')`
 
+Use the `my_pass` keyword-argument to specify a different password other than
+the one stored in the keychain: `chrome_cookies(url, my_pass='password')`
+
+Set the `opera` keyword-argument to `True` to specify Opera cookie decryption:
+`chrome_cookies(url, opera=True)`
+
 ## Features
 -  Returns decrypted cookies from Google Chrome on OSX or Linux.
 
