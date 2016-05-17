@@ -66,11 +66,10 @@ def chrome_cookies(url, cookie_file=None, my_pass=None, opera=False):
 
     # If running Chromium on Linux
     elif sys.platform.startswith('linux'):
+        path = '~/.config/opera/Cookies' if opera else '~/.config/chromium/Default/Cookies'
         my_pass = 'peanuts'.encode('utf8')
         iterations = 1
-        cookie_file = cookie_file or os.path.expanduser(
-            '~/.config/chromium/Default/Cookies'
-        )
+        cookie_file = cookie_file or os.path.expanduser(path)
     else:
         raise OSError("This script only works on OSX or Linux.")
 
